@@ -4,9 +4,30 @@ from django.contrib import messages
 import re 
 import tweepy 
 from tweepy import OAuthHandler 
-from textblob import TextBlob 
+from textblob import TextBlob
+import numpy as np
 
-"""class TwitterClient(object):
+# Create your views here.
+def index(request):
+    if request.method == "GET":
+        api = TwitterClient()
+        # calling function to get tweets
+        tweets = api.get_tweets(query = 'Samsung electronics', count = 200)
+  
+        # picking positive tweets from tweets 
+        ptweets = [tweet for tweet in tweets if tweet['sentiment'] == 'positive']
+        # percentage of positive tweets 
+        messages.success(request, "Positive tweets percentage: {} %".format(100*len(ptweets)/len(tweets)))
+        # picking negative tweets from tweets 
+        ntweets = [tweet for tweet in tweets if tweet['sentiment'] == 'negative'] 
+        # percentage of negative tweets 
+        messages.success(request, "Negative tweets percentage: {} %".format(100*len(ntweets)/len(tweets))) 
+        # percentage of neutral tweets 
+        messages.success(request, "Neutral tweets percentage: {} % ".format(100*(len(tweets) - len(ntweets) - len(ptweets))/len(tweets)))
+
+        return render(request, "index.html", {})
+
+class TwitterClient(object):
     def __init__(self):
         consumer_key = 'OZxUHnjfaGs54tQTEBROmQ6oP'
         consumer_secret = 'k2yegjgGb3Q48oYs2sEYmH6cGE2j24UEtjeeSaAGzCrkoq1MZS'
@@ -37,10 +58,7 @@ from textblob import TextBlob
             return 'negative'
             
     def get_tweets(self, query, count = 10): 
-        ''' 
-        Main function to fetch tweets and parse them. 
-        '''
-        # empty list to store parsed tweets 
+
         tweets = [] 
   
         try: 
@@ -69,25 +87,4 @@ from textblob import TextBlob
             return tweets 
   
         except tweepy.TweepError as e: 
-            # print error (if any) 
-            print("Error : " + str(e)) """
-
-# Create your views here.
-def index(request):
-    if request.method == "GET":
-        """api = TwitterClient()
-        # calling function to get tweets
-        tweets = api.get_tweets(query = 'Samsung electronics', count = 200) 
-  
-        # picking positive tweets from tweets 
-        ptweets = [tweet for tweet in tweets if tweet['sentiment'] == 'positive'] 
-        # percentage of positive tweets 
-        messages.success(request, "Positive tweets percentage: {} %".format(100*len(ptweets)/len(tweets))) 
-        # picking negative tweets from tweets 
-        ntweets = [tweet for tweet in tweets if tweet['sentiment'] == 'negative'] 
-        # percentage of negative tweets 
-        messages.success(request, "Negative tweets percentage: {} %".format(100*len(ntweets)/len(tweets))) 
-        # percentage of neutral tweets 
-        messages.success(request, "Neutral tweets percentage: {} % ".format(100*len(tweets - ntweets - ptweets)/len(tweets))) """
-  
-        return render(request, "index.html", {})
+            print("Error : " + str(e))
