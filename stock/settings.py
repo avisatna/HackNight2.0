@@ -25,7 +25,7 @@ SECRET_KEY = '1&=2053hpp-eg2#9+bh3imfjrivgj=o472dn!6rjrkgy#c+)hv'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['hacknightstocks.azurewebsites.net']
 
 
 # Application definition
