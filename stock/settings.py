@@ -27,6 +27,7 @@ DEBUG = True
 
 ALLOWED_HOSTS = ['hacknightstocks.azurewebsites.net']
 
+STATIC_ROOT = 'D:/home/site/wwwroot/static'
 
 # Application definition
 
@@ -63,8 +64,9 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+
             ],
-        },
+        },       
     },
 ]
 
